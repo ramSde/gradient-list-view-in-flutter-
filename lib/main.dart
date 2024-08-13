@@ -32,34 +32,73 @@ home: SafeArea(
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Padding(padding: EdgeInsets.all(15),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [ 
-CustomAppBar(),
-SizedBox(height: 25,),
-Expanded(
-  child: ListView(
-    scrollDirection: Axis.vertical,
-    children: [ 
-      GradientListCardView(weatherCondition: "Rainy",weatherIcon: Icons.cloud,),
-      SizedBox(height: 5,),
-      GradientListCardView(colors: [Colors.orange,Colors.amber],iconColor: Colors.yellow,cityName: "Una",temperature: "22°",weatherIcon: Icons.sunny,),
-       SizedBox(height: 5,),
-       GradientListCardView(colors: [Colors.purple,Colors.lightBlue],iconColor: Colors.blueGrey,weatherIcon: Icons.light,weatherCondition: "Lightning",temperature: "20°",),
-       SizedBox(height: 5,),
-       GradientListCardView(colors: [Colors.green,Colors.greenAccent],iconColor: Colors.deepOrange,temperature: "32°",)
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-    ],
-  ),
-)
-    ],),
+class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CustomAppBar(),
+          SizedBox(height: 25),
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                FoldingItem(
+                  isOpen: !isLoading,
+                  child: GradientListCardView(
+                    weatherCondition: "Rainy",
+                    weatherIcon: Icons.cloud,
+                  ),
+                ),
+                SizedBox(height: 5),
+                FoldingItem(
+                  isOpen: !isLoading,
+                  child: GradientListCardView(
+                    colors: [Colors.orange, Colors.amber],
+                    iconColor: Colors.yellow,
+                    cityName: "Una",
+                    temperature: "22°",
+                    weatherIcon: Icons.sunny,
+                  ),
+                ),
+                SizedBox(height: 5),
+                FoldingItem(
+                  isOpen: !isLoading,
+                  child: GradientListCardView(
+                    colors: [Colors.purple, Colors.lightBlue],
+                    iconColor: Colors.blueGrey,
+                    weatherIcon: Icons.light,
+                    weatherCondition: "Lightning",
+                    temperature: "20°",
+                  ),
+                ),
+                SizedBox(height: 5),
+                FoldingItem(
+                  isOpen: !isLoading,
+                  child: GradientListCardView(
+                    colors: [Colors.green, Colors.greenAccent],
+                    iconColor: Colors.deepOrange,
+                    temperature: "32°",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

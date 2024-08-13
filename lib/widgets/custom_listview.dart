@@ -91,3 +91,32 @@ class GradientListCardView extends StatelessWidget {
     );
   }
 }
+  
+
+  class FoldingItem extends StatelessWidget {
+  final Widget child;
+  final bool isOpen;
+  final Duration duration;
+
+  FoldingItem({
+    required this.child,
+    required this.isOpen,
+    this.duration = const Duration(milliseconds: 500),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: isOpen ? 0.0 : 1.0, end: isOpen ? 1.0 : 0.0),
+      duration: duration,
+      builder: (context, value, child) {
+        return Transform(
+          transform: Matrix4.identity()..setEntry(3, 2, 0.001)..rotateX(value * 3.14),
+          alignment: Alignment.center,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+}
